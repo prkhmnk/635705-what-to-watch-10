@@ -1,7 +1,7 @@
 # Личный проект «Что посмотреть»
 
 * Студент: [Oleg Parkhomenko](https://up.htmlacademy.ru/react/10/user/635705).
-* Наставник: `Неизвестно`.
+* Наставник: [Александр Тимоновский](https://htmlacademy.ru/profile/id768125).
 
 ---
 
