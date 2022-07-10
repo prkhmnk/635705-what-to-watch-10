@@ -148,3 +148,5 @@ function MainPage(): JSX.Element {
   )
 }
 
+export default MainPage;
+
