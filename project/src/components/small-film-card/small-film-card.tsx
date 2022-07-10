@@ -10,3 +10,5 @@ function SmallFilmCard(): JSX.Element {
     </article>
   );
 }
+
+export default SmallFilmCard;
