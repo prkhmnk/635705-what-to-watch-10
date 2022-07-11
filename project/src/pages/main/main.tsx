@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import SmallFilmCard from '../../components/small-film-card/small-film-card';
 
 type MainPageProps = {
@@ -151,7 +151,7 @@ function MainPage({ title, genre, date }: MainPageProps): JSX.Element {
         </footer>
       </div>
     </React.Fragment>
-  )
+  );
 }
 
 export default MainPage;
