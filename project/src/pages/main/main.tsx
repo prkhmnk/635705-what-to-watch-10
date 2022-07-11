@@ -1,7 +1,13 @@
 import React from "react";
 import SmallFilmCard from '../../components/small-film-card/small-film-card';
 
-function MainPage(): JSX.Element {
+type MainPageProps = {
+  title: string,
+  genre: string,
+  date: number,
+}
+
+function MainPage({ title, genre, date }: MainPageProps): JSX.Element {
   return (
     <React.Fragment>
       <section className="film-card">
@@ -39,10 +45,10 @@ function MainPage(): JSX.Element {
             </div>
 
             <div className="film-card__desc">
-              <h2 className="film-card__title">The Grand Budapest Hotel</h2>
+              <h2 className="film-card__title">{title}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">Drama</span>
-                <span className="film-card__year">2014</span>
+                <span className="film-card__genre">{genre}</span>
+                <span className="film-card__year">{date}</span>
               </p>
 
               <div className="film-card__buttons">
