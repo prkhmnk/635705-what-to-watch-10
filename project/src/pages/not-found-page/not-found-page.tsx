@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 function NotFoundPage(): JSX.Element {
   return (
@@ -8,7 +9,7 @@ function NotFoundPage(): JSX.Element {
       </section>
 
       <div className="page-content">
-        <a href="/">Вернуться на главную</a>
+        <Link to="/">Вернуться на главную</Link>
 
         <footer className="page-footer">
           <div className="logo">
