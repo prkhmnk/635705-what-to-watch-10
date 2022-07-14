@@ -1,4 +1,4 @@
-function LoginPage(): JSX.Element {
+function SignInPage(): JSX.Element {
   return (
     <div className="user-page">
       <header className="page-header user-page__head">
@@ -48,5 +48,5 @@ function LoginPage(): JSX.Element {
   );
 }
 
-export default LoginPage;
+export default SignInPage;
 

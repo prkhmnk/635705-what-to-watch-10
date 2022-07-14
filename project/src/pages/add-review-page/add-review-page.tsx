@@ -1,7 +1,7 @@
 import React from 'react';
 import SmallFilmCard from '../../components/small-film-card/small-film-card';
 
-function ReviewsPage(): JSX.Element {
+function AddReviewPage(): JSX.Element {
   return (
     <React.Fragment>
       <section className="film-card film-card--full">
@@ -199,5 +199,5 @@ function ReviewsPage(): JSX.Element {
   );
 }
 
-export default ReviewsPage;
+export default AddReviewPage;
 
