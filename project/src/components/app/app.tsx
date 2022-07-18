@@ -8,11 +8,15 @@ import PlayerPage from '../../pages/player-page/player-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import PrivateRoute from '../private-route/private-route';
 import { AppRoute, AuthorizationStatus } from '../../const';
+import { Film } from '../../types/film';
+import { Comment } from '../../types/comment';
 
 type AppProps = {
   title: string,
   genre: string,
   date: number,
+  films: Film[],
+  comments: Comment[]
 }
 
 function App({ title, genre, date }: AppProps): JSX.Element {

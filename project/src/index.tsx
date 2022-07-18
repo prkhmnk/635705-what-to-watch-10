@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
+import { films } from './mocks/films';
+import { comments } from './mocks/comments';
 
 const Setting = {
   title: 'The Grand Budapest Hotel',
@@ -18,6 +20,8 @@ root.render(
       title={Setting.title}
       genre={Setting.genre}
       date={Setting.date}
+      films={films}
+      comments={comments}
     />
   </React.StrictMode>,
 );
