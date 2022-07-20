@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { Film } from '../../types/film';
 
 type PlayerPageProps = {
@@ -7,13 +7,22 @@ type PlayerPageProps = {
 
 function PlayerPage({ films }: PlayerPageProps): JSX.Element {
   const params = useParams();
-  const { videoLink, posterImage } = films.find((film) => String(film.id) === params.id) as Film;
+  const navigate = useNavigate();
+  const { videoLink, posterImage, id } = films.find((film) => String(film.id) === params.id) as Film;
 
   return (
     <div className="player">
       <video src={videoLink} className="player__video" poster={posterImage}></video>
 
-      <button type="button" className="player__exit">Exit</button>
+      <button
+        type="button"
+        className="player__exit"
+        onClick={() => {
+          navigate(`/films/${id}`);
+        }}
+      >
+        Exit
+      </button>
 
       <div className="player__controls">
         <div className="player__controls-row">
