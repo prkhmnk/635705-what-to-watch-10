@@ -29,7 +29,7 @@ function FilmsList({ films }: FilmsListProps): JSX.Element {
       {films.map((film) => (
         <SmallFilmCard
           film={film}
-          key={film.name}
+          key={film.id + film.name}
         />
       ))}
     </div>
