@@ -1,7 +1,12 @@
-import SmallFilmCard from '../../components/small-film-card/small-film-card';
 import Logo from '../../components/logo/logo';
+import { Film } from '../../types/film';
+import FilmsList from '../../components/films-list/films-list';
 
-function MyListPage(): JSX.Element {
+type MyListPageProps = {
+  films: Film[]
+}
+
+function MyListPage({ films }: MyListPageProps): JSX.Element {
   return (
     <div className="user-page">
       <header className="page-header user-page__head">
@@ -23,17 +28,7 @@ function MyListPage(): JSX.Element {
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-        <div className="catalog__films-list">
-          <SmallFilmCard />
-          <SmallFilmCard />
-          <SmallFilmCard />
-          <SmallFilmCard />
-          <SmallFilmCard />
-          <SmallFilmCard />
-          <SmallFilmCard />
-          <SmallFilmCard />
-          <SmallFilmCard />
-        </div>
+        <FilmsList films={films} />
       </section>
 
       <footer className="page-footer">

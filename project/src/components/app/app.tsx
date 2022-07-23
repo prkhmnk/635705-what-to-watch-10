@@ -8,14 +8,16 @@ import PlayerPage from '../../pages/player-page/player-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import PrivateRoute from '../private-route/private-route';
 import { AppRoute, AuthorizationStatus } from '../../const';
+import { Film } from '../../types/film';
 
 type AppProps = {
   title: string,
   genre: string,
   date: number,
+  films: Film[]
 }
 
-function App({ title, genre, date }: AppProps): JSX.Element {
+function App({ title, genre, date, films }: AppProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
@@ -26,6 +28,7 @@ function App({ title, genre, date }: AppProps): JSX.Element {
               title={title}
               genre={genre}
               date={date}
+              films={films}
             />
           }
         />
@@ -39,21 +42,21 @@ function App({ title, genre, date }: AppProps): JSX.Element {
             <PrivateRoute
               authorizationStatus={AuthorizationStatus.NoAuth}
             >
-              <MyListPage />
+              <MyListPage films={films} />
             </PrivateRoute>
           }
         />
         <Route
           path={AppRoute.Film}
-          element={<FilmPage />}
+          element={<FilmPage films={films} />}
         />
         <Route
           path={AppRoute.AddReview}
-          element={<AddReviewPage />}
+          element={<AddReviewPage films={films} />}
         />
         <Route
           path={AppRoute.Player}
-          element={<PlayerPage />}
+          element={<PlayerPage films={films} />}
         />
         <Route
           path="*"
