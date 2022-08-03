@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
 import { films } from './mocks/films';
+import { reviews } from './mocks/reviews';
 
 const Setting = {
   title: 'The Grand Budapest Hotel',
@@ -20,6 +21,7 @@ root.render(
       genre={Setting.genre}
       date={Setting.date}
       films={films}
+      reviews={reviews}
     />
   </React.StrictMode>,
 );

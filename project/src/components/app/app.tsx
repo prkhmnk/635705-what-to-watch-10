@@ -9,15 +9,17 @@ import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import PrivateRoute from '../private-route/private-route';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { Film } from '../../types/film';
+import { Review } from '../../types/review';
 
 type AppProps = {
   title: string,
   genre: string,
   date: number,
-  films: Film[]
+  films: Film[],
+  reviews: Review[]
 }
 
-function App({ title, genre, date, films }: AppProps): JSX.Element {
+function App({ title, genre, date, films, reviews }: AppProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
@@ -48,7 +50,7 @@ function App({ title, genre, date, films }: AppProps): JSX.Element {
         />
         <Route
           path={AppRoute.Film}
-          element={<FilmPage films={films} />}
+          element={<FilmPage films={films} reviews={reviews} />}
         />
         <Route
           path={AppRoute.AddReview}
