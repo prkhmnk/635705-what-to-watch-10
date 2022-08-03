@@ -100,7 +100,7 @@ function FilmPage({ films, reviews }: FilmPageProps): JSX.Element {
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
 
-          <FilmsList films={films} />
+          <FilmsList films={films.filter((film) => film.genre === currentFilm.genre).slice(0, 4)} />
         </section>
 
         <footer className="page-footer">
