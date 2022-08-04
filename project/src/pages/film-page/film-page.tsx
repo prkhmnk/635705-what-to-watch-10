@@ -1,24 +1,30 @@
 import React from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import Logo from '../../components/logo/logo';
-import { Film } from '../../types/film';
 import FilmsList from '../../components/films-list/films-list';
+import Tabs from '../../components/tabs/tabs';
+import { Film } from '../../types/film';
+import { Review } from '../../types/review';
 
 type FilmPageProps = {
-  films: Film[];
+  films: Film[],
+  reviews: Review[]
 }
 
-function FilmPage({ films }: FilmPageProps): JSX.Element {
+function FilmPage({ films, reviews }: FilmPageProps): JSX.Element {
+
   const params = useParams();
   const navigate = useNavigate();
-  const { backgroundImage, name, genre, released, id } = films.find((film) => film.id === Number(params.id)) as Film;
+
+  const currentFilm = films.find((film) => film.id === Number(params.id)) as Film;
+  const currentReview = reviews.find((review) => review.filmId === Number(params.id)) as Review;
 
   return (
     <React.Fragment>
       <section className="film-card film-card--full">
         <div className="film-card__hero">
           <div className="film-card__bg">
-            <img src={backgroundImage} alt={name} />
+            <img src={currentFilm.backgroundImage} alt={currentFilm.name} />
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
@@ -40,10 +46,10 @@ function FilmPage({ films }: FilmPageProps): JSX.Element {
 
           <div className="film-card__wrap">
             <div className="film-card__desc">
-              <h2 className="film-card__title">{name}</h2>
+              <h2 className="film-card__title">{currentFilm.name}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">{genre}</span>
-                <span className="film-card__year">{released}</span>
+                <span className="film-card__genre">{currentFilm.genre}</span>
+                <span className="film-card__year">{currentFilm.released}</span>
               </p>
 
               <div className="film-card__buttons">
@@ -51,7 +57,7 @@ function FilmPage({ films }: FilmPageProps): JSX.Element {
                   className="btn btn--play film-card__button"
                   type="button"
                   onClick={() => {
-                    navigate(`/player/${id}`);
+                    navigate(`/player/${currentFilm.id}`);
                   }}
                 >
                   <svg viewBox="0 0 19 19" width="19" height="19">
@@ -72,7 +78,7 @@ function FilmPage({ films }: FilmPageProps): JSX.Element {
                   <span>My list</span>
                   <span className="film-card__count">9</span>
                 </button>
-                <Link to={`/films/${id}/review`} className="btn film-card__button">Add review</Link>
+                <Link to={`/films/${currentFilm.id}/review`} className="btn film-card__button">Add review</Link>
               </div>
             </div>
           </div>
@@ -84,39 +90,8 @@ function FilmPage({ films }: FilmPageProps): JSX.Element {
               <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
             </div>
 
-            <div className="film-card__desc">
-              <nav className="film-nav film-card__nav">
-                <ul className="film-nav__list">
-                  <li className="film-nav__item film-nav__item--active">
-                    <Link to="#" className="film-nav__link">Overview</Link>
-                  </li>
-                  <li className="film-nav__item">
-                    <Link to="#" className="film-nav__link">Details</Link>
-                  </li>
-                  <li className="film-nav__item">
-                    <Link to="#" className="film-nav__link">Reviews</Link>
-                  </li>
-                </ul>
-              </nav>
+            <Tabs film={currentFilm} review={currentReview} />
 
-              <div className="film-rating">
-                <div className="film-rating__score">8,9</div>
-                <p className="film-rating__meta">
-                  <span className="film-rating__level">Very good</span>
-                  <span className="film-rating__count">240 ratings</span>
-                </p>
-              </div>
-
-              <div className="film-card__text">
-                <p>In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave&apos;s friend and protege.</p>
-
-                <p>Gustave prides himself on providing first-className service to the hotel&apos;s guests, including satisfying the sexual needs of the many elderly women who stay there. When one of Gustave&apos;s lovers dies mysteriously, Gustave finds himself the recipient of a priceless painting and the chief suspect in her murder.</p>
-
-                <p className="film-card__director"><strong>Director: Wes Anderson</strong></p>
-
-                <p className="film-card__starring"><strong>Starring: Bill Murray, Edward Norton, Jude Law, Willem Dafoe and other</strong></p>
-              </div>
-            </div>
           </div>
         </div>
       </section>
@@ -125,7 +100,7 @@ function FilmPage({ films }: FilmPageProps): JSX.Element {
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
 
-          <FilmsList films={films} />
+          <FilmsList films={films.filter((film) => film.genre === currentFilm.genre).slice(0, 4)} />
         </section>
 
         <footer className="page-footer">

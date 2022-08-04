@@ -16,7 +16,7 @@ export const films: Film[] = [
     scoresCount: 240,
     director: 'Wes Anderson',
     starring: [
-      'Bill Murray'
+      'Bill Murray', 'Bill Murray', 'Edward Norton', 'Jude Law', 'Willem Dafoe'
     ],
     runTime: 99,
     genre: 'Comedy',
