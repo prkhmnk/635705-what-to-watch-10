@@ -19,4 +19,17 @@ export enum Tab {
   Reviews = 'Reviews',
 }
 
+export enum Genre {
+  AllGenres = 'All genres',
+  Comedies = 'Comedies',
+  Crime = 'Crime',
+  Documentary = 'Documentary',
+  Dramas = 'Dramas',
+  Horror = 'Horror',
+  KidsAndFamily = 'Kids & Family',
+  Romance = 'Romance',
+  SciFi = 'Sci-Fi',
+  Thrillers = 'Thrillers'
+}
+
 export const VIDEO_TIMEOUT = 1000;
