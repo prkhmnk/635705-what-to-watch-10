@@ -30,7 +30,6 @@ function App({ title, genre, date, films, reviews }: AppProps): JSX.Element {
               title={title}
               genre={genre}
               date={date}
-              films={films}
             />
           }
         />
