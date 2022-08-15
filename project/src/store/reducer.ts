@@ -1,10 +1,14 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { genreСhange, setMovieList } from './action';
 import { Genre } from '../const';
+import { Film } from '../types/film';
 import { films } from '../mocks/films';
 
-const initialState = {
-  genre: Genre.AllGenres,
+const initialState: {
+  genre: keyof typeof Genre,
+  movieList: Film[]
+} = {
+  genre: 'All genres',
   movieList: films,
 };
 
@@ -14,7 +18,11 @@ const reducer = createReducer(initialState, (builder) => {
       state.genre = action.payload;
     })
     .addCase(setMovieList, (state) => {
-      state.movieList = films.filter((film) => film.genre === state.genre);
+      if (state.genre === Genre['All genres']) {
+        state.movieList = films;
+        return;
+      }
+      state.movieList = films.filter((film) => Genre[film.genre as keyof typeof Genre] === state.genre);
     });
 });
 
