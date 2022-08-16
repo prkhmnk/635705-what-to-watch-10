@@ -13,6 +13,7 @@ type MainPageProps = {
 function MainPage({ title, genre, date }: MainPageProps): JSX.Element {
 
   const stateFilms = useAppSelector((state) => state.movieList);
+  const count = useAppSelector((state) => state.count);
 
   return (
     <React.Fragment>
@@ -77,7 +78,7 @@ function MainPage({ title, genre, date }: MainPageProps): JSX.Element {
 
           <GenresList />
 
-          <FilmsList films={stateFilms} />
+          <FilmsList films={stateFilms.slice(0, count)} />
 
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>

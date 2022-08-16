@@ -3,19 +3,23 @@ import { genreСhange, setMovieList } from './action';
 import { Genre } from '../const';
 import { Film } from '../types/film';
 import { films } from '../mocks/films';
+import { FilmListCount } from '../const';
 
 const initialState: {
   genre: keyof typeof Genre,
-  movieList: Film[]
+  movieList: Film[],
+  count: number
 } = {
   genre: 'All genres',
   movieList: films,
+  count: FilmListCount.MainPage
 };
 
 const reducer = createReducer(initialState, (builder) => {
   builder
     .addCase(genreСhange, (state, action) => {
       state.genre = action.payload;
+      state.count = FilmListCount.MainPage;
     })
     .addCase(setMovieList, (state) => {
       if (state.genre === Genre['All genres']) {

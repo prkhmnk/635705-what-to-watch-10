@@ -32,4 +32,9 @@ export enum Genre {
   'Thriller' = 'Thrillers'
 }
 
+export enum FilmListCount {
+  MainPage = 8,
+  FilmPage = 4
+}
+
 export const VIDEO_TIMEOUT = 1000;
