@@ -2,6 +2,7 @@ import React from 'react';
 import GenresList from '../../components/genres-list/genres-list';
 import FilmsList from '../../components/films-list/films-list';
 import Logo from '../../components/logo/logo';
+import ShowMore from '../../components/show-more/show-more';
 import { useAppSelector } from '../../hooks';
 
 type MainPageProps = {
@@ -80,9 +81,8 @@ function MainPage({ title, genre, date }: MainPageProps): JSX.Element {
 
           <FilmsList films={stateFilms.slice(0, count)} />
 
-          <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
-          </div>
+          {count < stateFilms.length && <ShowMore />}
+
         </section>
 
         <footer className="page-footer">
