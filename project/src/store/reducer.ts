@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { genreСhange, setMovieList, showMore } from './action';
+import { genreСhange, setMovieList, showMore, resetCount } from './action';
 import { Genre } from '../const';
 import { Film } from '../types/film';
 import { films } from '../mocks/films';
@@ -30,6 +30,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(showMore, (state) => {
       state.count += FilmListCount.MainPage;
+    })
+    .addCase(resetCount, (state) => {
+      state.count = FilmListCount.MainPage;
     });
 });
 

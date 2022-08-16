@@ -5,3 +5,5 @@ export const genreСhange = createAction('game/genreСhange', (value) => ({ payl
 export const setMovieList = createAction('game/setMovieList');
 
 export const showMore = createAction('film/showMore');
+
+export const resetCount = createAction('film/resetCount');
