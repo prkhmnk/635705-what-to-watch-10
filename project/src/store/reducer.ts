@@ -2,7 +2,6 @@ import { createReducer } from '@reduxjs/toolkit';
 import { genreСhange, setMovieList } from './action';
 import { Genre } from '../const';
 import { Film } from '../types/film';
-import { films } from '../mocks/films';
 
 const initialState: {
   genre: keyof typeof Genre,
