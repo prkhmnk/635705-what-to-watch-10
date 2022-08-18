@@ -5,17 +5,15 @@ import Details from '../details/details';
 import Reviews from '../reviews/reviews';
 import { Tab } from '../../const';
 import { Film } from '../../types/film';
-import { Review } from '../../types/review';
+// import { Review } from '../../types/review';
 
 type TabsProps = {
   film: Film,
-  review: Review
+  // review: Review
 }
 
-function Tabs({ film, review }: TabsProps): JSX.Element {
+function Tabs({ film }: TabsProps): JSX.Element {
   const [active, setActive] = useState<string>(Tab.Overview);
-
-  const { comments } = review;
 
   return (
     <div className="film-card__desc">
@@ -33,7 +31,7 @@ function Tabs({ film, review }: TabsProps): JSX.Element {
 
       {active === Tab.Overview && <Overview film={film} />}
       {active === Tab.Details && <Details film={film} />}
-      {active === Tab.Reviews && <Reviews comments={comments} />}
+      {active === Tab.Reviews && <Reviews />}
     </div>
 
   );

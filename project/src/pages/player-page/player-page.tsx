@@ -1,14 +1,11 @@
 import { useParams, useNavigate } from 'react-router-dom';
-import { Film } from '../../types/film';
+import { useAppSelector } from '../../hooks';
 
-type PlayerPageProps = {
-  films: Film[]
-}
-
-function PlayerPage({ films }: PlayerPageProps): JSX.Element {
-  const params = useParams();
+function PlayerPage(): JSX.Element {
+  const { films } = useAppSelector((state) => state);
+  const { id } = useParams();
   const navigate = useNavigate();
-  const { videoLink, posterImage, id } = films.find((film) => String(film.id) === params.id) as Film;
+  const [{ videoLink, posterImage }] = films.filter((film) => film.id.toString() === id);
 
   return (
     <div className="player">

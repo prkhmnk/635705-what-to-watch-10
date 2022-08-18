@@ -1,27 +1,27 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { genreСhange, setMovieList } from './action';
-import { Genre } from '../const';
+import { setMovieList, loadFilms } from './action';
 import { Film } from '../types/film';
 
-const initialState: {
-  genre: keyof typeof Genre,
-  movieList: Film[]
-} = {
-  genre: 'All genres',
-  movieList: films,
+type InitialState = {
+  films: Film[],
+  filteredFilmsGenre: Film[]
+}
+
+const initialState: InitialState = {
+  films: [],
+  filteredFilmsGenre: []
 };
 
 const reducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(genreСhange, (state, action) => {
-      state.genre = action.payload;
+    .addCase(loadFilms, (state, action) => {
+      state.films = action.payload;
     })
-    .addCase(setMovieList, (state) => {
-      if (state.genre === Genre['All genres']) {
-        state.movieList = films;
-        return;
-      }
-      state.movieList = films.filter((film) => Genre[film.genre as keyof typeof Genre] === state.genre);
+    .addCase(setMovieList, (state, action) => {
+      const currentGenre = action.payload;
+      const allFilms = state.films;
+      const filteredFilms: Film[] = allFilms.filter((film) => film.genre === currentGenre);
+      state.filteredFilmsGenre = currentGenre === 'All genres' ? allFilms : filteredFilms;
     });
 });
 

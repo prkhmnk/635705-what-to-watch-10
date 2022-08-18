@@ -3,28 +3,20 @@ import { useNavigate, useParams, Link } from 'react-router-dom';
 import Logo from '../../components/logo/logo';
 import FilmsList from '../../components/films-list/films-list';
 import Tabs from '../../components/tabs/tabs';
-import { Film } from '../../types/film';
-import { Review } from '../../types/review';
+import { useAppSelector } from '../../hooks';
 
-type FilmPageProps = {
-  films: Film[],
-  reviews: Review[]
-}
-
-function FilmPage({ films, reviews }: FilmPageProps): JSX.Element {
-
-  const params = useParams();
+function FilmPage(): JSX.Element {
+  const { films } = useAppSelector((state) => state);
+  const { id } = useParams();
   const navigate = useNavigate();
-
-  const currentFilm = films.find((film) => film.id === Number(params.id)) as Film;
-  const currentReview = reviews.find((review) => review.filmId === Number(params.id)) as Review;
-
+  const [currentFilm] = films.filter((film) => film.id.toString() === id);
+  const { name, backgroundImage, genre, released, posterImage } = currentFilm;
   return (
     <React.Fragment>
       <section className="film-card film-card--full">
         <div className="film-card__hero">
           <div className="film-card__bg">
-            <img src={currentFilm.backgroundImage} alt={currentFilm.name} />
+            <img src={backgroundImage} alt={name} />
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
@@ -39,17 +31,17 @@ function FilmPage({ films, reviews }: FilmPageProps): JSX.Element {
                 </div>
               </li>
               <li className="user-block__item">
-                <a className="user-block__link">Sign out</a>
+                <a className="user-block__link" href="/">Sign out</a>
               </li>
             </ul>
           </header>
 
           <div className="film-card__wrap">
             <div className="film-card__desc">
-              <h2 className="film-card__title">{currentFilm.name}</h2>
+              <h2 className="film-card__title">{name}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">{currentFilm.genre}</span>
-                <span className="film-card__year">{currentFilm.released}</span>
+                <span className="film-card__genre">{genre}</span>
+                <span className="film-card__year">{released}</span>
               </p>
 
               <div className="film-card__buttons">
@@ -78,7 +70,7 @@ function FilmPage({ films, reviews }: FilmPageProps): JSX.Element {
                   <span>My list</span>
                   <span className="film-card__count">9</span>
                 </button>
-                <Link to={`/films/${currentFilm.id}/review`} className="btn film-card__button">Add review</Link>
+                <Link to={`/films/${id}/review`} className="btn film-card__button">Add review</Link>
               </div>
             </div>
           </div>
@@ -87,10 +79,10 @@ function FilmPage({ films, reviews }: FilmPageProps): JSX.Element {
         <div className="film-card__wrap film-card__translate-top">
           <div className="film-card__info">
             <div className="film-card__poster film-card__poster--big">
-              <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
+              <img src={posterImage} alt={name} width="218" height="327" />
             </div>
 
-            <Tabs film={currentFilm} review={currentReview} />
+            <Tabs film={currentFilm} />
 
           </div>
         </div>
