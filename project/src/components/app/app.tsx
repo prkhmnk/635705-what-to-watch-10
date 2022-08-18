@@ -8,9 +8,14 @@ import PlayerPage from '../../pages/player-page/player-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import PrivateRoute from '../private-route/private-route';
 import { AppRoute, AuthorizationStatus } from '../../const';
+import { useAppSelector } from '../../hooks';
+import Loader from '../loader/loader';
 
 function App(): JSX.Element {
-
+  const { films, isDataLoading } = useAppSelector((state) => state);
+  if (isDataLoading || films.length === 0) {
+    return <Loader />;
+  }
   return (
     <BrowserRouter>
       <Routes>

@@ -1,15 +1,17 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { setMovieList, loadFilms } from './action';
+import { setMovieList, loadFilms, setDataLoadedStatus } from './action';
 import { Film } from '../types/film';
 
 type InitialState = {
   films: Film[],
-  filteredFilmsGenre: Film[]
+  filteredFilmsGenre: Film[],
+  isDataLoading: boolean
 }
 
 const initialState: InitialState = {
   films: [],
-  filteredFilmsGenre: []
+  filteredFilmsGenre: [],
+  isDataLoading: false,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -22,6 +24,9 @@ const reducer = createReducer(initialState, (builder) => {
       const allFilms = state.films;
       const filteredFilms: Film[] = allFilms.filter((film) => film.genre === currentGenre);
       state.filteredFilmsGenre = currentGenre === 'All genres' ? allFilms : filteredFilms;
+    })
+    .addCase(setDataLoadedStatus, (state, action) => {
+      state.isDataLoading = action.payload;
     });
 });
 
