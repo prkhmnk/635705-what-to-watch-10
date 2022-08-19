@@ -4,23 +4,22 @@ import FilmsList from '../../components/films-list/films-list';
 import Logo from '../../components/logo/logo';
 import ShowMore from '../../components/show-more/show-more';
 import { useAppSelector } from '../../hooks';
+import { Film } from '../../types/film';
+import { useNavigate } from 'react-router-dom';
 
-type MainPageProps = {
-  title: string,
-  genre: string,
-  date: number
-}
-
-function MainPage({ title, genre, date }: MainPageProps): JSX.Element {
-
-  const stateFilms = useAppSelector((state) => state.movieList);
+function MainPage(): JSX.Element {
+  const navigate = useNavigate();
+  const { films, filteredFilmsGenre } = useAppSelector((state) => state);
   const count = useAppSelector((state) => state.count);
+  const genresFilms = ['All genres', ...new Set(films.map((film) => film.genre))];
+
+  const { backgroundImage, name, posterImage, genre, released }: Film = films[0];
 
   return (
     <React.Fragment>
       <section className="film-card">
         <div className="film-card__bg">
-          <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
+          <img src={backgroundImage} alt={name} />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -29,13 +28,13 @@ function MainPage({ title, genre, date }: MainPageProps): JSX.Element {
           <Logo />
 
           <ul className="user-block">
-            <li className="user-block__item">
+            <li className="user-block__item" onClick={() => navigate('/mylist')}>
               <div className="user-block__avatar">
                 <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
               </div>
             </li>
             <li className="user-block__item">
-              <a className="user-block__link">Sign out</a>
+              <a className="user-block__link" href="/">Sign out</a>
             </li>
           </ul>
         </header>
@@ -43,14 +42,14 @@ function MainPage({ title, genre, date }: MainPageProps): JSX.Element {
         <div className="film-card__wrap">
           <div className="film-card__info">
             <div className="film-card__poster">
-              <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
+              <img src={posterImage} alt="The Grand Budapest Hotel poster" width="218" height="327" />
             </div>
 
             <div className="film-card__desc">
-              <h2 className="film-card__title">{title}</h2>
+              <h2 className="film-card__title">{name}</h2>
               <p className="film-card__meta">
                 <span className="film-card__genre">{genre}</span>
-                <span className="film-card__year">{date}</span>
+                <span className="film-card__year">{released}</span>
               </p>
 
               <div className="film-card__buttons">
@@ -77,17 +76,17 @@ function MainPage({ title, genre, date }: MainPageProps): JSX.Element {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <GenresList />
+          <GenresList genresFilms={genresFilms}></GenresList>
 
-          <FilmsList films={stateFilms.slice(0, count)} />
+          <FilmsList films={filteredFilmsGenre.slice(0, count)} />
 
-          {count < stateFilms.length && <ShowMore />}
+          {count < filteredFilmsGenre.length && <ShowMore />}
 
         </section>
 
         <footer className="page-footer">
           <div className="logo">
-            <a className="logo__link logo__link--light">
+            <a className="logo__link logo__link--light" href="/">
               <span className="logo__letter logo__letter--1">W</span>
               <span className="logo__letter logo__letter--2">T</span>
               <span className="logo__letter logo__letter--3">W</span>
@@ -104,4 +103,3 @@ function MainPage({ title, genre, date }: MainPageProps): JSX.Element {
 }
 
 export default MainPage;
-

@@ -1,12 +1,9 @@
 import Logo from '../../components/logo/logo';
-import { Film } from '../../types/film';
 import FilmsList from '../../components/films-list/films-list';
+import { useAppSelector } from '../../hooks';
 
-type MyListPageProps = {
-  films: Film[]
-}
-
-function MyListPage({ films }: MyListPageProps): JSX.Element {
+function MyListPage(): JSX.Element {
+  const { films } = useAppSelector((state) => state);
   return (
     <div className="user-page">
       <header className="page-header user-page__head">
@@ -20,7 +17,7 @@ function MyListPage({ films }: MyListPageProps): JSX.Element {
             </div>
           </li>
           <li className="user-block__item">
-            <a className="user-block__link">Sign out</a>
+            <a className="user-block__link" href="/">Sign out</a>
           </li>
         </ul>
       </header>

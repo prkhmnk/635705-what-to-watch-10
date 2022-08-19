@@ -1,8 +1,13 @@
 import { createAction } from '@reduxjs/toolkit';
+import { Film } from '../types/film';
 
-export const genreСhange = createAction('game/genreСhange', (value) => ({ payload: value }));
+export const loadFilms = createAction<Film[]>('data/loadFilms');
 
-export const setMovieList = createAction('game/setMovieList');
+export const setDataLoadedStatus = createAction<boolean>('data/setDataLoadedStatus');
+
+export const setMovieList = createAction('main/setMovieList', (value) => ({
+  payload: value,
+}));
 
 export const showMore = createAction('film/showMore');
 

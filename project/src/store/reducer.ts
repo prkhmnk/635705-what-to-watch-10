@@ -1,32 +1,35 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { genreСhange, setMovieList, showMore, resetCount } from './action';
-import { Genre } from '../const';
+import { setMovieList, loadFilms, setDataLoadedStatus, showMore, resetCount } from './action';
 import { Film } from '../types/film';
-import { films } from '../mocks/films';
 import { FilmListCount } from '../const';
 
-const initialState: {
-  genre: keyof typeof Genre,
-  movieList: Film[],
+type InitialState = {
+  films: Film[],
+  filteredFilmsGenre: Film[],
+  isDataLoading: boolean,
   count: number
-} = {
-  genre: 'All genres',
-  movieList: films,
+}
+
+const initialState: InitialState = {
+  films: [],
+  filteredFilmsGenre: [],
+  isDataLoading: false,
   count: FilmListCount.MainPage
 };
 
 const reducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(genreСhange, (state, action) => {
-      state.genre = action.payload;
-      state.count = FilmListCount.MainPage;
+    .addCase(loadFilms, (state, action) => {
+      state.films = action.payload;
     })
-    .addCase(setMovieList, (state) => {
-      if (state.genre === Genre['All genres']) {
-        state.movieList = films;
-        return;
-      }
-      state.movieList = films.filter((film) => Genre[film.genre as keyof typeof Genre] === state.genre);
+    .addCase(setMovieList, (state, action) => {
+      const currentGenre = action.payload;
+      const allFilms = state.films;
+      const filteredFilms: Film[] = allFilms.filter((film) => film.genre === currentGenre);
+      state.filteredFilmsGenre = currentGenre === 'All genres' ? allFilms : filteredFilms;
+    })
+    .addCase(setDataLoadedStatus, (state, action) => {
+      state.isDataLoading = action.payload;
     })
     .addCase(showMore, (state) => {
       state.count += FilmListCount.MainPage;
