@@ -1,29 +1,27 @@
-import { Link } from 'react-router-dom';
-import { Genre } from '../../const';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { genreСhange, setMovieList } from '../../store/action';
+import { SyntheticEvent, useEffect, useState } from 'react';
+import { useAppDispatch } from '../../hooks';
+import { setMovieList } from '../../store/action';
 
-function GenresList(): JSX.Element {
+type GenresListProps = {
+  genresFilms: string[]
+}
 
+function GenresList({ genresFilms }: GenresListProps): JSX.Element {
+  const [activeGenre, setActiveGenre] = useState(genresFilms[0]);
   const dispatch = useAppDispatch();
-  const active = useAppSelector((state) => state.genre);
+  const onClickHandler = (e: SyntheticEvent, genre: string) => {
+    e.preventDefault();
+    setActiveGenre(genre);
+  };
+  useEffect(() => {
+    dispatch(setMovieList(activeGenre));
+  }, [activeGenre, dispatch]);
 
   return (
     <ul className="catalog__genres-list">
-      {Object.values(Genre).map((item) => (
-        <li key={item} className={`catalog__genres-item ${active === item && 'catalog__genres-item--active'}`}>
-          <Link
-            to="#"
-            className="catalog__genres-link"
-            onClick={
-              (evt) => {
-                evt.preventDefault();
-                dispatch(genreСhange(item));
-                dispatch(setMovieList());
-              }
-            }
-          >{item}
-          </Link>
+      {genresFilms.map((genre) => (
+        <li key={genre} className={genre !== activeGenre ? 'catalog__genres-item' : 'catalog__genres-item catalog__genres-item--active'}>
+          <a href="/" className="catalog__genres-link" onClick={(e) => onClickHandler(e, genre)}>{genre}</a>
         </li>
       ))}
     </ul>

@@ -1,15 +1,13 @@
 import { useParams } from 'react-router-dom';
 import Logo from '../../components/logo/logo';
 import AddReviewForm from '../../components/add-review-form/add-review-form';
-import { Film } from '../../types/film';
+import { useAppSelector } from '../../hooks';
 
-type AddReviewPageProps = {
-  films: Film[]
-}
-
-function AddReviewPage({ films }: AddReviewPageProps): JSX.Element {
-  const params = useParams();
-  const { backgroundImage, name, posterImage } = films.find((film) => String(film.id) === params.id) as Film;
+function AddReviewPage(): JSX.Element {
+  const { films } = useAppSelector((state) => state);
+  const { id } = useParams();
+  const [currentFilm] = films.filter((film) => film.id.toString() === id);
+  const { backgroundImage, name, posterImage } = currentFilm;
 
   return (
     <section className="film-card film-card--full">
@@ -29,7 +27,7 @@ function AddReviewPage({ films }: AddReviewPageProps): JSX.Element {
                 <a href="film-page.html" className="breadcrumbs__link">{name}</a>
               </li>
               <li className="breadcrumbs__item">
-                <a className="breadcrumbs__link">Add review</a>
+                <a className="breadcrumbs__link" href="/">Add review</a>
               </li>
             </ul>
           </nav>
@@ -41,7 +39,7 @@ function AddReviewPage({ films }: AddReviewPageProps): JSX.Element {
               </div>
             </li>
             <li className="user-block__item">
-              <a className="user-block__link">Sign out</a>
+              <a className="user-block__link" href="/">Sign out</a>
             </li>
           </ul>
         </header>

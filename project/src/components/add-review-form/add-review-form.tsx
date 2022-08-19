@@ -1,14 +1,14 @@
-import { ChangeEvent, useState } from 'react';
+import { SyntheticEvent, useState } from 'react';
 
-function AddReviewForm() {
+function AddReviewForm(): JSX.Element {
   const [formData, setFormData] = useState({
     'rating': '',
     'review-text': ''
   });
 
-  const fieldChangeHandle = (evt: ChangeEvent<(HTMLInputElement | HTMLTextAreaElement)>) => {
-    const {name, value} = evt.target;
-    setFormData({...formData, [name]: value});
+  const fieldChangeHandle = (evt: SyntheticEvent): void => {
+    const { name, value } = evt.target as HTMLTextAreaElement;
+    setFormData({ ...formData, [name]: value });
   };
 
   return (
