@@ -1,17 +1,20 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { setMovieList, loadFilms, setDataLoadedStatus } from './action';
 import { Film } from '../types/film';
+import { AuthorizationStatus } from '../const';
 
 type InitialState = {
   films: Film[],
   filteredFilmsGenre: Film[],
-  isDataLoading: boolean
+  isDataLoading: boolean,
+  authorizationStatus: AuthorizationStatus
 }
 
 const initialState: InitialState = {
   films: [],
   filteredFilmsGenre: [],
   isDataLoading: false,
+  authorizationStatus: AuthorizationStatus.Unknown
 };
 
 const reducer = createReducer(initialState, (builder) => {
