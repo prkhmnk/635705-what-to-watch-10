@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { setMovieList, loadFilms, setDataLoadedStatus } from './action';
+import { setMovieList, loadFilms, setDataLoadedStatus, requireAuth } from './action';
 import { Film } from '../types/film';
 import { AuthorizationStatus } from '../const';
 
@@ -30,6 +30,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setDataLoadedStatus, (state, action) => {
       state.isDataLoading = action.payload;
+    })
+    .addCase(requireAuth, (state, action) => {
+      state.authorizationStatus = action.payload;
     });
 });
 
