@@ -1,18 +1,15 @@
 import React from 'react';
+import User from '../../components/user/user';
 import GenresList from '../../components/genres-list/genres-list';
 import FilmsList from '../../components/films-list/films-list';
 import Logo from '../../components/logo/logo';
 import { useAppSelector } from '../../hooks';
 import { Film } from '../../types/film';
-import { useNavigate } from 'react-router-dom';
 
 function MainPage(): JSX.Element {
-  const navigate = useNavigate();
   const { films, filteredFilmsGenre } = useAppSelector((state) => state);
   const genresFilms = ['All genres', ...new Set(films.map((film) => film.genre))];
-
   const { backgroundImage, name, posterImage, genre, released }: Film = films[0];
-
   return (
     <React.Fragment>
       <section className="film-card">
@@ -25,16 +22,7 @@ function MainPage(): JSX.Element {
         <header className="page-header film-card__head">
           <Logo />
 
-          <ul className="user-block">
-            <li className="user-block__item" onClick={() => navigate('/mylist')}>
-              <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-              </div>
-            </li>
-            <li className="user-block__item">
-              <a className="user-block__link" href="/">Sign out</a>
-            </li>
-          </ul>
+          <User />
         </header>
 
         <div className="film-card__wrap">
