@@ -1,3 +1,5 @@
+import { StatusCodes } from 'http-status-codes';
+
 export enum AppRoute {
   Main = '/',
   SignIn = '/login',
@@ -21,6 +23,15 @@ export enum Tab {
 
 export enum APIRoute {
   Films = '/films',
+  Login = '/login'
 }
 
 export const VIDEO_TIMEOUT = 1000;
+
+export const StatusCodeMapping: Record<number, boolean> = {
+  [StatusCodes.BAD_REQUEST]: true,
+  [StatusCodes.UNAUTHORIZED]: true,
+  [StatusCodes.NOT_FOUND]: true
+};
+
+export const TIMEOUT_SHOW_ERROR = 3000;

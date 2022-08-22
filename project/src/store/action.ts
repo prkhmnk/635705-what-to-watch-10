@@ -11,3 +11,5 @@ export const setMovieList = createAction('main/setMovieList', (value) => ({
 }));
 
 export const requireAuth = createAction<AuthorizationStatus>('user/requireAuth');
+
+export const setError = createAction<string | null>('main/setError');

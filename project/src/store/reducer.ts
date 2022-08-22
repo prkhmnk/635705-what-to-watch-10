@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { setMovieList, loadFilms, setDataLoadedStatus, requireAuth } from './action';
+import { setMovieList, loadFilms, setDataLoadedStatus, requireAuth, setError } from './action';
 import { Film } from '../types/film';
 import { AuthorizationStatus } from '../const';
 
@@ -7,14 +7,16 @@ type InitialState = {
   films: Film[],
   filteredFilmsGenre: Film[],
   isDataLoading: boolean,
-  authorizationStatus: AuthorizationStatus
+  authorizationStatus: AuthorizationStatus,
+  error: string | null
 }
 
 const initialState: InitialState = {
   films: [],
   filteredFilmsGenre: [],
   isDataLoading: false,
-  authorizationStatus: AuthorizationStatus.Unknown
+  authorizationStatus: AuthorizationStatus.Unknown,
+  error: null
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -33,6 +35,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(requireAuth, (state, action) => {
       state.authorizationStatus = action.payload;
+    })
+    .addCase(setError, (state, action) => {
+      state.error = action.payload;
     });
 });
 
