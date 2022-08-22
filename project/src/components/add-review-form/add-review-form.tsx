@@ -1,10 +1,18 @@
 import { SyntheticEvent, useState } from 'react';
+import { Comment } from '../../types/comment';
+import FilmRating from '../film-rating/film-rating';
 
 function AddReviewForm(): JSX.Element {
   const [formData, setFormData] = useState({
-    'rating': '',
-    'review-text': ''
-  });
+    comment: '',
+    date: '',
+    id: 0,
+    rating: 0,
+    user: {
+      id: 0,
+      name: ''
+    }
+  } as Comment);
 
   const fieldChangeHandle = (evt: SyntheticEvent): void => {
     const { name, value } = evt.target as HTMLTextAreaElement;
@@ -13,40 +21,7 @@ function AddReviewForm(): JSX.Element {
 
   return (
     <form action="#" className="add-review__form">
-      <div className="rating">
-        <div className="rating__stars">
-          <input onChange={fieldChangeHandle} className="rating__input" id="star-10" type="radio" name="rating" value={formData['rating']} />
-          <label className="rating__label" htmlFor="star-10">Rating 10</label>
-
-          <input onChange={fieldChangeHandle} className="rating__input" id="star-9" type="radio" name="rating" value={formData['rating']} />
-          <label className="rating__label" htmlFor="star-9">Rating 9</label>
-
-          <input onChange={fieldChangeHandle} className="rating__input" id="star-8" type="radio" name="rating" value={formData['rating']} />
-          <label className="rating__label" htmlFor="star-8">Rating 8</label>
-
-          <input onChange={fieldChangeHandle} className="rating__input" id="star-7" type="radio" name="rating" value={formData['rating']} />
-          <label className="rating__label" htmlFor="star-7">Rating 7</label>
-
-          <input onChange={fieldChangeHandle} className="rating__input" id="star-6" type="radio" name="rating" value={formData['rating']} />
-          <label className="rating__label" htmlFor="star-6">Rating 6</label>
-
-          <input onChange={fieldChangeHandle} className="rating__input" id="star-5" type="radio" name="rating" value={formData['rating']} />
-          <label className="rating__label" htmlFor="star-5">Rating 5</label>
-
-          <input onChange={fieldChangeHandle} className="rating__input" id="star-4" type="radio" name="rating" value={formData['rating']} />
-          <label className="rating__label" htmlFor="star-4">Rating 4</label>
-
-          <input onChange={fieldChangeHandle} className="rating__input" id="star-3" type="radio" name="rating" value={formData['rating']} />
-          <label className="rating__label" htmlFor="star-3">Rating 3</label>
-
-          <input onChange={fieldChangeHandle} className="rating__input" id="star-2" type="radio" name="rating" value={formData['rating']} />
-          <label className="rating__label" htmlFor="star-2">Rating 2</label>
-
-          <input onChange={fieldChangeHandle} className="rating__input" id="star-1" type="radio" name="rating" value={formData['rating']} />
-          <label className="rating__label" htmlFor="star-1">Rating 1</label>
-        </div>
-      </div>
-
+      <FilmRating changeFormRating={fieldChangeHandle} formData={formData}></FilmRating>
       <div className="add-review__text">
         <textarea
           className="add-review__textarea"
@@ -54,7 +29,6 @@ function AddReviewForm(): JSX.Element {
           id="review-text"
           placeholder="Review text"
           onChange={fieldChangeHandle}
-          value={formData['review-text']}
         />
         <div className="add-review__submit">
           <button className="add-review__btn" type="submit">Post</button>

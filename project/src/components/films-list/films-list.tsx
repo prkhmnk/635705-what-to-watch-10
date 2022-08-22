@@ -7,19 +7,13 @@ type FilmsListProps = {
 }
 
 function FilmsList({ films }: FilmsListProps): JSX.Element {
-
-  const [activeId, setActiveId] = useState<number | null>(null);
-
-  const mouseOverHandler = (filmId: number): void => setActiveId(filmId);
-  const mouseOutHandler = (): void => setActiveId(null);
+  const [, setIdActiveFilm] = useState(0);
 
   return (
     <div className="catalog__films-list">
       {films.map((film) => (
         <SmallFilmCard
-          activeId={activeId}
-          mouseOverHandler={mouseOverHandler}
-          mouseOutHandler={mouseOutHandler}
+          setIdActiveFilm={setIdActiveFilm}
           film={film}
           key={film.id + film.name}
         />

@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import MainPage from '../../pages/main-page/main-page';
 import SignInPage from '../../pages/sing-in-page/sing-in-page';
 import MyListPage from '../../pages/mylist-page/mylist-page';
@@ -10,14 +10,16 @@ import PrivateRoute from '../private-route/private-route';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { useAppSelector } from '../../hooks';
 import Loader from '../loader/loader';
+import browserHistory from '../../browser-history';
+import HistoryRouter from '../history-router/history-router';
 
 function App(): JSX.Element {
-  const { films, isDataLoading } = useAppSelector((state) => state);
-  if (isDataLoading || films.length === 0) {
+  const { films, isDataLoading, authorizationStatus } = useAppSelector((state) => state);
+  if (AuthorizationStatus.Unknown === authorizationStatus || isDataLoading || films.length === 0) {
     return <Loader />;
   }
   return (
-    <BrowserRouter>
+    <HistoryRouter history={browserHistory}>
       <Routes>
         <Route
           path={AppRoute.Main}
@@ -30,9 +32,7 @@ function App(): JSX.Element {
         <Route
           path={AppRoute.MyList}
           element={
-            <PrivateRoute
-              authorizationStatus={AuthorizationStatus.NoAuth}
-            >
+            <PrivateRoute>
               <MyListPage />
             </PrivateRoute>
           }
@@ -44,7 +44,7 @@ function App(): JSX.Element {
         <Route
           path={AppRoute.AddReview}
           element={
-            <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
+            <PrivateRoute>
               <AddReviewPage />
             </PrivateRoute>
           }
@@ -58,8 +58,7 @@ function App(): JSX.Element {
           element={<NotFoundPage />}
         />
       </Routes>
-    </BrowserRouter>
-  );
+    </HistoryRouter>);
 }
 
 export default App;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate, useParams, Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import Logo from '../../components/logo/logo';
 import FilmsList from '../../components/films-list/films-list';
 import Tabs from '../../components/tabs/tabs';
@@ -8,9 +8,8 @@ import { useAppSelector } from '../../hooks';
 function FilmPage(): JSX.Element {
   const { films } = useAppSelector((state) => state);
   const { id } = useParams();
-  const navigate = useNavigate();
   const [currentFilm] = films.filter((film) => film.id.toString() === id);
-  const { name, backgroundImage, genre, released, posterImage } = currentFilm;
+  const { name, backgroundImage, genre, released, posterImage, rating, scoresCount } = currentFilm;
   return (
     <React.Fragment>
       <section className="film-card film-card--full">
@@ -45,25 +44,13 @@ function FilmPage(): JSX.Element {
               </p>
 
               <div className="film-card__buttons">
-                <button
-                  className="btn btn--play film-card__button"
-                  type="button"
-                  onClick={() => {
-                    navigate(`/player/${currentFilm.id}`);
-                  }}
-                >
+                <button className="btn btn--play film-card__button" type="button">
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
                   <span>Play</span>
                 </button>
-                <button
-                  className="btn btn--list film-card__button"
-                  type="button"
-                  onClick={() => {
-                    navigate('/mylist');
-                  }}
-                >
+                <button className="btn btn--list film-card__button" type="button">
                   <svg viewBox="0 0 19 20" width="19" height="20">
                     <use xlinkHref="#add"></use>
                   </svg>

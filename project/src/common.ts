@@ -1,6 +1,4 @@
 import dayjs from 'dayjs';
-import { AxiosResponse } from 'axios';
-import { StatusCodeMapping } from './const';
 
 export const getDate = (data: string): string => dayjs(data).format('MMMM D, YYYY');
 
@@ -26,5 +24,3 @@ export const getRunTime = (mins: number): string => {
   const minutes = mins % 60;
   return `${hours}h ${minutes}m`;
 };
-
-export const shouldDisplayError = (response: AxiosResponse) => !!StatusCodeMapping[response.status];

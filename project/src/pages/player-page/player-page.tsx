@@ -1,22 +1,18 @@
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import VideoPlayer from '../../components/video-player/video-player';
 import { useAppSelector } from '../../hooks';
 
 function PlayerPage(): JSX.Element {
   const { films } = useAppSelector((state) => state);
   const { id } = useParams();
-  const navigate = useNavigate();
-  const [{ videoLink, posterImage }] = films.filter((film) => film.id.toString() === id);
-
+  const [currentFilmPlaying] = films.filter((film) => film.id.toString() === id);
   return (
     <div className="player">
-      <video src={videoLink} className="player__video" poster={posterImage}></video>
+      <VideoPlayer film={currentFilmPlaying} />
 
       <button
         type="button"
         className="player__exit"
-        onClick={() => {
-          navigate(`/films/${id}`);
-        }}
       >
         Exit
       </button>

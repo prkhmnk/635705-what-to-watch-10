@@ -1,36 +1,14 @@
-import { useEffect, useRef } from 'react';
-import { VIDEO_TIMEOUT } from '../../const';
+import { Film } from '../../types/film';
 
-type VideoPlayerProps = {
-  activeId: number | null,
-  previewImage: string,
-  previewVideoLink: string
+type VideoFilmProps = {
+  film: Film,
+  isMuted?: boolean,
 }
 
-function VideoPlayer({ activeId, previewImage, previewVideoLink }: VideoPlayerProps): JSX.Element {
-  const videoRef = useRef<HTMLVideoElement | null>(null);
-
-  useEffect(() => {
-    if (videoRef.current === null) {
-      return;
-    }
-
-    if (activeId) {
-      setTimeout(() => {
-        if (videoRef.current) {
-          videoRef.current.play();
-        }
-      }, VIDEO_TIMEOUT);
-    }
-
-    videoRef.current.pause();
-  }, [activeId]);
-
+function VideoPlayer({ film, isMuted = true }: VideoFilmProps): JSX.Element {
+  const { videoLink, posterImage } = film;
   return (
-    <video ref={videoRef} poster={previewImage} preload="metadata" muted>
-      <source src={previewVideoLink} type="video/mp4" />
-      Your browser does not support the video tag.
-    </video>
+    <video src={videoLink} className="player__video" poster={posterImage} muted={isMuted} autoPlay></video>
   );
 }
 
