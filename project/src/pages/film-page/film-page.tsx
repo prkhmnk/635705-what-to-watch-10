@@ -9,7 +9,7 @@ function FilmPage(): JSX.Element {
   const { films } = useAppSelector((state) => state);
   const { id } = useParams();
   const [currentFilm] = films.filter((film) => film.id.toString() === id);
-  const { name, backgroundImage, genre, released, posterImage, rating, scoresCount } = currentFilm;
+  const { name, backgroundImage, genre, released, posterImage } = currentFilm;
   return (
     <React.Fragment>
       <section className="film-card film-card--full">
