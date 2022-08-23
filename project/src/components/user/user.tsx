@@ -1,3 +1,4 @@
+import { Fragment } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
@@ -12,16 +13,18 @@ function User(): JSX.Element {
   };
   return (
     <ul className="user-block">
-      <li className="user-block__item" onClick={() => navigate('/mylist')}>
-        <div className="user-block__avatar">
-          <img src={authorizationStatus === AuthorizationStatus.Auth ? 'img/avatar.jpg' : 'img/guest.jpg'} alt="User avatar" width="63" height="63" />
-        </div>
-      </li>
-      <li className="user-block__item">
-        {authorizationStatus === AuthorizationStatus.Auth ?
-          <Link className="user-block__link" to={AppRoute.Main} onClick={logoutHandler}>Sign out</Link>
-          : <Link className="user-block__link" to={AppRoute.SignIn}>Sign in</Link>}
-      </li>
+      {authorizationStatus === AuthorizationStatus.Auth ? (
+        <Fragment>
+          <li className="user-block__item" onClick={() => navigate('/mylist')}>
+            <div className="user-block__avatar">
+              <img src='img/avatar.jpg' alt="User avatar" width="63" height="63" />
+            </div>
+          </li>
+          <li className="user-block__item">
+            <Link className="user-block__link" to={AppRoute.Main} onClick={logoutHandler}>Sign out</Link>
+          </li>
+        </Fragment>
+      ) : <Link className="user-block__link" to={AppRoute.SignIn}>Sign in</Link>}
     </ul>
   );
 }
